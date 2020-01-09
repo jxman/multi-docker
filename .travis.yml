@@ -10,7 +10,7 @@ script:
 
 after_success:
   - docker build -t jxman/multi-client ./client
-  - docker build -t jxman/multi-ngix ./nginx
+  - docker build -t jxman/multi-nginx ./nginx
   - docker build -t jxman/multi-server ./server
   - docker build -t jxman/multi-worker ./worker
 # Login to docker CLI
