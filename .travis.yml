@@ -15,7 +15,7 @@ after_success:
   - docker build -t jxman/multi-worker ./worker
 # Login to docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-# Take those images and push to docker 
+# Take those images and push to docker test again
   - docker push jxman/multi-client
   - docker push jxman/multi-ngix
   - docker push jxman/multi-server
