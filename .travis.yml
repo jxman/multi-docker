@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t jxman/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true jxman/react-test npm test
+
+after_success:
+  - docker build -t jxman/multi-client ./client
+  - docker build -t jxman/multi-ngix ./nginx
+  - docker build -t jxman/multi-server ./server
+  - docker build -t jxman/multi-worker ./worker
+# Login to docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# Take those images and push to docker 
+  - docker push jxman/multi-client
+  - docker push jxman/multi-ngix
+  - docker push jxman/multi-server
+  - docker push jxman/multi-worker
